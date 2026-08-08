@@ -1,4 +1,9 @@
 .env
+.env.local
+.env.*.local
+.vercel/
+.agents/
+skills-lock.json
 node_modules/
 dist/
 *.log

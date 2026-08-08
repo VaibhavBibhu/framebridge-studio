@@ -1,0 +1,7 @@
+.env
+.env.local
+.agents/
+.git/
+dist/
+node_modules/
+skills-lock.json
