@@ -1,0 +1,5 @@
+import jwt from'jsonwebtoken';import{User}from'./models.js';
+export const tokenFor=u=>jwt.sign({sub:u._id,role:u.role},process.env.JWT_SECRET,{expiresIn:'7d'});
+export async function auth(req,res,next){try{const raw=req.headers.authorization?.replace(/^Bearer\s+/,'');if(!raw)return res.status(401).json({error:'Authentication required'});const data=jwt.verify(raw,process.env.JWT_SECRET);const user=await User.findById(data.sub);if(!user||user.status==='blocked')return res.status(403).json({error:'Account unavailable'});req.user=user;next()}catch{return res.status(401).json({error:'Invalid or expired session'})}}
+export const roles=(...allowed)=>(req,res,next)=>{if(!allowed.includes(req.user.role))return res.status(403).json({error:'Insufficient permissions'});if(req.user.role==='editor'&&req.user.status!=='approved')return res.status(403).json({error:'Editor approval is required'});next()};
+export const safeUser=u=>({id:u._id,name:u.name,email:u.email,role:u.role,status:u.status,skills:u.skills,experience:u.experience,completedProjects:u.completedProjects});
