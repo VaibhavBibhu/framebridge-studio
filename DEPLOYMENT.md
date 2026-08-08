@@ -1,25 +1,29 @@
 # FrameBridge Studio deployment
 
-The repository includes a Render Blueprint in `render.yaml`. It builds the React client, starts the Express and Socket.IO server, runs `/api/health` checks, generates the JWT secret, and seeds the initial administrator after the first successful deployment.
+FrameBridge Studio is deployed as a Vite frontend and Express serverless API on Vercel, with a private Supabase Postgres data layer.
 
-## Required Render secrets
+## Production
 
-Enter these values when Render creates the Blueprint:
+- Website: `https://framebridge-studio.vercel.app`
+- Health check: `https://framebridge-studio.vercel.app/api/health`
+- Vercel project: `vaibhavbibhus-projects/framebridge-studio`
+- Supabase resource: `supabase-copper-garden`
 
-- `MONGODB_URI`: MongoDB Atlas Node.js connection string ending in `/framebridge`.
-- `ADMIN_PASSWORD`: a unique production password of at least 16 characters.
-- `CLOUDINARY_CLOUD_NAME`: Cloudinary product-environment cloud name.
-- `CLOUDINARY_API_KEY`: Cloudinary server API key.
-- `CLOUDINARY_API_SECRET`: Cloudinary server API secret.
+## Required Vercel environment variables
 
-Never commit these values to Git. Render generates `JWT_SECRET` automatically.
+The Supabase Marketplace integration supplies `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, Postgres connection variables, and related public keys. The application additionally requires:
 
-## After the first deployment
+- `JWT_SECRET`: sensitive random production secret.
+- `ADMIN_EMAIL`: administrator email address.
+- `ADMIN_PASSWORD`: sensitive 16+ character administrator password.
+- `CLIENT_URL`: `https://framebridge-studio.vercel.app`.
 
-1. Confirm `https://framebridge-studio.onrender.com/api/health` returns an `ok` response.
-2. Sign in as `earnaster@gmail.com` with the production `ADMIN_PASSWORD`.
-3. Test client registration, project submission, the 30% UPI payment, proof upload, and manual approval.
-4. Add the purchased domain under Render **Settings → Custom Domains**.
-5. Change `CLIENT_URL` to the final HTTPS domain and redeploy.
+Never commit these values. `.env`, `.env.local`, `.vercel`, and integration-generated agent files are ignored.
 
-If the desired Render service name is unavailable, update both the service `name` and `CLIENT_URL` in `render.yaml` before creating the Blueprint.
+## Data security
+
+`public.framebridge_documents` has row-level security enabled. Browser roles have no table privileges. Only the server-side Supabase secret can access application records, and the existing API JWT and role middleware performs user authorization. Payment screenshots remain protected behind the admin API.
+
+## Deploy
+
+Push reviewed changes to `main` for connected Git deployments, or build and deploy through the authenticated Vercel CLI. After every deployment, verify the homepage, `/api/health`, registration, authenticated profile lookup, and administrator login.
