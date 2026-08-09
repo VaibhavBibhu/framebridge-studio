@@ -1,0 +1,23 @@
+.tabPage{display:flex;flex-direction:column;gap:20px}
+.tabGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.projectList.compact button{grid-template-columns:auto 1fr auto auto}
+.historyList{display:flex;flex-direction:column}
+.historyList>div{display:grid;grid-template-columns:auto minmax(180px,1fr) auto auto;gap:16px;align-items:center;padding:18px 20px;border-top:1px solid var(--line)}
+.historyList>div:first-child{border-top:0}
+.historyList svg{width:22px;color:var(--purple)}
+.historyList span{display:flex;flex-direction:column;gap:5px}
+.historyList small{color:var(--muted)}
+.settingsPanel,.supportPanel{max-width:900px}
+.settingsGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:24px}
+.settingsGrid label{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:13px}
+.settingsGrid strong{color:var(--text);font-size:16px;text-transform:capitalize}
+.supportPanel form{padding:24px}
+.deliveryProgress{padding:28px;display:flex;flex-direction:column;gap:18px}
+.deliveryProgress>strong{font-size:34px}
+.simpleInfo{display:flex;align-items:center;gap:18px;padding:28px}
+.simpleInfo>svg{width:40px;height:40px;color:var(--purple)}
+.simpleInfo p{margin:8px 0 0;color:var(--muted)}
+.sideBottom button.active{color:var(--purple);background:var(--purple-soft)}
+.tabPage .adminTable{overflow-x:auto}
+.tabPage .adminRow{grid-template-columns:minmax(180px,1.2fr) minmax(110px,1fr) auto auto auto;min-width:720px}
+@media(max-width:900px){.tabGrid{grid-template-columns:1fr}.historyList>div{grid-template-columns:auto 1fr}.historyList>div>strong,.historyList>div>.status{grid-column:2}.settingsGrid{grid-template-columns:1fr}}
