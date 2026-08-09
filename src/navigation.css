@@ -18,6 +18,14 @@
 .simpleInfo>svg{width:40px;height:40px;color:var(--purple)}
 .simpleInfo p{margin:8px 0 0;color:var(--muted)}
 .sideBottom button.active{color:var(--purple);background:var(--purple-soft)}
+.fileDrop{cursor:pointer;transition:border-color .2s,background .2s}
+.fileDrop:hover{border-color:var(--purple);background:#f7f4ff}
+.fileDrop.disabled{cursor:not-allowed;opacity:.7}
+.fileDrop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.uploadPanel .file{width:calc(100% - 32px);border:0;background:transparent;padding:0;text-align:left;cursor:pointer}
+.uploadPanel .file:hover b{color:var(--purple)}
+.chatUser small i.waiting{background:#e09a32}
+.chatInput input:disabled{background:#f6f6f8;color:#8b8b93;cursor:not-allowed}
 .tabPage .adminTable{overflow-x:auto}
 .tabPage .adminRow{grid-template-columns:minmax(180px,1.2fr) minmax(110px,1fr) auto auto auto;min-width:720px}
 @media(max-width:900px){.tabGrid{grid-template-columns:1fr}.historyList>div{grid-template-columns:auto 1fr}.historyList>div>strong,.historyList>div>.status{grid-column:2}.settingsGrid{grid-template-columns:1fr}}
